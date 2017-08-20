@@ -1,13 +1,24 @@
 module Main exposing (main)
 
 import Html
-import App exposing (init, update, view)
+import Navigation exposing (Location)
+import App exposing (init, update, view, Msg(..), urlParser)
 
 
 main =
-    Html.program
+    Navigation.program
+        navigationHandler
         { init = init
         , update = update
         , view = view
         , subscriptions = always Sub.none
         }
+
+
+
+--
+
+
+navigationHandler : Location -> Msg
+navigationHandler =
+    urlParser >> Set

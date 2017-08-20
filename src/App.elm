@@ -3,15 +3,23 @@ module App exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Navigation exposing (..)
+import UrlParser exposing ((</>), s, int, string, parseHash)
 
 
 type alias Model =
     Int
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( 0, Cmd.none )
+init : Location -> ( Model, Cmd Msg )
+init l =
+    ( urlParser l, Cmd.none )
+
+
+urlParser : Location -> Int
+urlParser l =
+    UrlParser.parsePath UrlParser.int l
+        |> Maybe.withDefault 0
 
 
 
@@ -20,13 +28,17 @@ init =
 
 type Msg
     = Inc
+    | Set Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
         Inc ->
-            (model + 1) ! []
+            ( model, Navigation.newUrl <| toString (model + 1) )
+
+        Set val ->
+            ( val, Cmd.none )
 
 
 
