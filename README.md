@@ -12,7 +12,6 @@ With npm
 ```sh
 $ git clone git@github.com:simonh1000/elm-webpack-starter.git new-project
 $ cd new-project
-<remove .git directory>
 $ npm install
 $ npm run dev
 ```
@@ -21,8 +20,7 @@ With yarn
 ```sh
 $ git clone git@github.com:simonh1000/elm-webpack-starter.git new-project
 $ cd new-project
-<remove .git directory>
-$ yarn install
+$ yarn
 $ yarn dev
  ```
 
@@ -40,6 +38,20 @@ npm run prod
 ## Static assets
 
 Just add to `src/assets/` and the production build copies them to `/dist`
+
+## Testing
+
+[Install elm-test globally](https://github.com/elm-community/elm-test#running-tests-locally)
+
+`elm-test init` is run when you install your dependencies. After that all you need to do to run the tests is
+
+```sh
+yarn test
+```
+
+Take a look at the examples in `tests/`
+
+If you add dependencies to your main app, then run `elm-test --add-dependencies`
 
 <hr />
 
@@ -67,3 +79,12 @@ You will also need to npm install babel.
 ## Credits
 
 A long time ago this code was forked from https://github.com/fluxxu/elm-hot-loader
+
+## How it works
+
+"webpack-dev-server --hot --inline --host=0.0.0.0 --port 3000",
+
+--hot Enable webpack's Hot Module Replacement feature
+--inline (default) a script will be inserted in your bundle to take care of live reloading, and build messages will appear in the browser console.
+--host=0.0.0.0 ??
+--port 3000 - use port 3000 instead of default 8000
