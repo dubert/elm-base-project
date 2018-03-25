@@ -35,10 +35,20 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
         Inc ->
-            ( model, Navigation.newUrl <| toString (model + 1) )
+            ( add1 model, Navigation.newUrl <| toString (model + 1) )
 
         Set val ->
             ( val, Cmd.none )
+
+
+{-| increments the counter
+
+    add1 5 --> 6
+
+-}
+add1 : Model -> Model
+add1 model =
+    model + 1
 
 
 

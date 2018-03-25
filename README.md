@@ -1,4 +1,6 @@
-# Elm 0.18 with Webpack 3, Hot Loading & Bootstrap 4-beta
+<img src="https://circleci.com/gh/simonh1000/elm-webpack-starter.png?circle-token=:circle-token">
+
+# Elm 0.18 with Webpack 3, Hot Loading & Bootstrap 4
 
 Elm dev environment with hot-loading (i.e. state is retained as you edit your code - Hot Module Reloading, HMR)). I use this daily for my professional work. Like elm-community/elm-webpack-starter but using Webpack 3.
 
@@ -45,7 +47,7 @@ Just add to `src/assets/` and the production build copies them to `/dist`
 
 `elm-test init` is run when you install your dependencies. After that all you need to do to run the tests is
 
-```sh
+```
 yarn test
 ```
 
@@ -53,13 +55,15 @@ Take a look at the examples in `tests/`
 
 If you add dependencies to your main app, then run `elm-test --add-dependencies`
 
+I have also added [elm-verify-examples](https://github.com/stoeffel/elm-verify-examples) and provided an example in the definition of `add1` in App.elm.
+
 <hr />
 
 ## ES6
 
 If you need to write some Javascript port code, you need to be aware that `npm run prod` will fail as the uglifyjs plugin provided with Webpack 3 cannot handle ES6. There are a couple of ways forward
 
-- add babel to transpile to es5 before passing to uglifyjs by modifying the common.module.rules to read:
+- Install and use [Babel](https://babeljs.io/) to transpile to es5 before passing to uglifyjs. I modify the common.module.rules to read:
 ```
 {
    test: /\.js$/,
@@ -72,7 +76,6 @@ If you need to write some Javascript port code, you need to be aware that `npm r
    }
 }
 ```
-You will also need to npm install babel.
 
 - Use uglifyjs2/3 (untested) - see https://www.npmjs.com/package/uglifyjs-webpack-plugin
 
@@ -88,3 +91,7 @@ A long time ago this code was forked from https://github.com/fluxxu/elm-hot-load
 --inline (default) a script will be inserted in your bundle to take care of live reloading, and build messages will appear in the browser console.
 --host=0.0.0.0 ??
 --port 3000 - use port 3000 instead of default 8000
+
+## Changelog
+
+ - 1.1.0 - add elm-verify-examples
