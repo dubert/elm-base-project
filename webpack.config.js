@@ -1,15 +1,16 @@
-var path = require("path");
+const path = require("path");
 const webpack = require("webpack");
-var merge = require("webpack-merge");
-var CopyWebpackPlugin = require("copy-webpack-plugin");
-var HTMLWebpackPlugin = require("html-webpack-plugin");
+const merge = require("webpack-merge");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 
-var TARGET_ENV =
+var MODE =
     process.env.npm_lifecycle_event === "prod" ? "production" : "development";
-var filename = TARGET_ENV == "production" ? "[name]-[hash].js" : "index.js";
+var filename = MODE == "production" ? "[name]-[hash].js" : "index.js";
 
 var common = {
+    mode: MODE,
     entry: "./src/index.js",
     output: {
         path: path.join(__dirname, "dist"),
@@ -34,11 +35,7 @@ var common = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader",
-                    options: {
-                        // env: automatically determines the Babel plugins you need based on your supported environments
-                        presets: ["env"]
-                    }
+                    loader: "babel-loader"
                 }
             },
             {
@@ -73,7 +70,7 @@ var common = {
     }
 };
 
-if (TARGET_ENV === "development") {
+if (MODE === "development") {
     console.log("Building for dev...");
     module.exports = merge(common, {
         plugins: [
@@ -112,8 +109,8 @@ if (TARGET_ENV === "development") {
     });
 }
 
-if (TARGET_ENV === "production") {
-    console.log("Building for prod...");
+if (MODE === "production") {
+    console.log("Building for Production...");
     module.exports = merge(common, {
         plugins: [
             // Delete everything from output directory and report to user
@@ -127,9 +124,7 @@ if (TARGET_ENV === "production") {
                 {
                     from: "src/assets"
                 }
-            ]),
-            // TODO update to version that handles =>
-            new webpack.optimize.UglifyJsPlugin()
+            ])
         ],
         module: {
             rules: [
