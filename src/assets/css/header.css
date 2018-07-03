@@ -1,0 +1,11 @@
+header {
+    background-color: red;
+}
+
+header .img-bkg {
+    width: 60px;
+    height: 60px;
+    background-size: 60px 60px;
+    background-repeat:no-repeat;
+    background: url('./assets/images/logo.png')
+}
