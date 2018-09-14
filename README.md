@@ -11,11 +11,10 @@ Elm dev environment with hot-loading (i.e. state is retained as you edit your co
 
 ## To do
 
-- Route.elm
-- Elm-UI
-- Palette.elm
-
-- Local storage port boilerplate code
+[] Route.elm
+[] Elm-UI
+[] Palette.elm
+[] Local storage port boilerplate code
 
 ## Installation
 
