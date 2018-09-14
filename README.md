@@ -1,6 +1,11 @@
-<img src="https://circleci.com/gh/simonh1000/elm-webpack-starter.png?circle-token=:circle-token">
+# Elm Base Project
 
-# Elm 0.19 with Webpack 4, Hot Reloading & Babel 7
+## Features
+
+- Elm 0.19
+- Webpack 4
+- Babel 7
+- Hot Reloading
 
 Elm dev environment with hot-loading (i.e. state is retained as you edit your code - Hot Module Reloading, HMR)). I use this daily for my professional work. Like elm-community/elm-webpack-starter but using Webpack 4.
 
@@ -12,7 +17,7 @@ Clone this repo into a new project folder and run install script.
 With npm
 
 ```sh
-$ git clone git@github.com:simonh1000/elm-webpack-starter.git new-project
+$ git clone git@github.com:dubert/elm-base-project.git new-project
 $ cd new-project
 $ npm install
 $ npm run dev
@@ -20,7 +25,7 @@ $ npm run dev
 
 With yarn
 ```sh
-$ git clone git@github.com:simonh1000/elm-webpack-starter.git new-project
+$ git clone git@github.com:dubert/elm-base-project.git new-project
 $ cd new-project
 $ yarn
 $ yarn dev
@@ -65,16 +70,12 @@ This starter includes [Babel](https://babeljs.io/) so you can directly use ES6 c
 
 ## Changelog
 
- - 3.0.1 - use publicPath to ensure compatibility with more complex routes
- - 3.0.0 - version 0.19
- - 2.1.0 - switch to webpack-serve (from webpack dev server)
- - 2.0.0
-    - Remove Bootstrap (use purecss as simple alternative - you don't want me choosing your css framework after all)
-    - Compile CSS into separate file
- - 1.2.0 - Webpack 4, Babel 7
- - 1.1.0 - add elm-verify-examples
+ - 1.0.0 - Intial version
 
  ## Credits
+
+ Recently this was forked from
+ https://github.com/simonh1000/elm-webpack-starter
 
  A long time ago this code was forked from https://github.com/fluxxu/elm-hot-loader
 
