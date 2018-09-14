@@ -9,6 +9,14 @@
 
 Elm dev environment with hot-loading (i.e. state is retained as you edit your code - Hot Module Reloading, HMR)). I use this daily for my professional work. Like elm-community/elm-webpack-starter but using Webpack 4.
 
+## To do
+
+- Route.elm
+- Elm-UI
+- Palette.elm
+
+- Local storage port boilerplate code
+
 ## Installation
 
 Clone this repo into a new project folder and run install script.
@@ -70,7 +78,7 @@ This starter includes [Babel](https://babeljs.io/) so you can directly use ES6 c
 
 ## Changelog
 
- - 1.0.0 - Intial version
+ - 1.0.0 - Initial version
 
  ## Credits
 
