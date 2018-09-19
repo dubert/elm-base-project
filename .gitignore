@@ -3,7 +3,6 @@ logs
 *.log
 npm-debug.log*
 
-
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
@@ -22,9 +21,8 @@ elm-stuff/
 # elm-repl generated files
 repl-temp-*
 
+# Mac OS X
 .DS_Store
-example/dist
 
-ignore
-dist
-tests/VerifyExamples
+# Public distribution files
+public

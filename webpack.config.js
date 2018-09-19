@@ -1,25 +1,22 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const history = require('koa-connect-history-api-fallback')
-// const convert = require('koa-connect')
-// const proxy = require('http-proxy-middleware')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-
-// to extract the css as a separate file
+const CompressionPlugin = require('compression-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-var MODE = process.env.npm_lifecycle_event === 'prod' ? 'production' : 'development'
+var MODE =
+  process.env.npm_lifecycle_event === 'prod' ? 'production' : 'development'
 var filename = MODE == 'production' ? '[name]-[hash].js' : 'index.js'
 
 var common = {
   mode: MODE,
   entry: './src/index.js',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'public'),
     publicPath: '/',
     // webpack -p automatically adds hash when building for production
     filename: filename
@@ -96,8 +93,7 @@ if (MODE === 'development') {
             {
               loader: 'elm-webpack-loader',
               options: {
-                // add Elm's debug overlay to output
-                debug: true,
+                debug: true, // add Elm's debug overlay to output
                 forceWatch: true
               }
             }
@@ -105,16 +101,11 @@ if (MODE === 'development') {
         }
       ]
     },
-    serve: {
+    devServer: {
       inline: true,
       stats: 'errors-only',
-      content: [path.join(__dirname, 'src/assets')],
-      add: (app, middleware, options) => {
-        // routes /xyz -> /index.html
-        app.use(history())
-        // e.g.
-        // app.use(convert(proxy('/api', { target: 'http://localhost:5000' })))
-      }
+      contentBase: path.join(__dirname, 'src/assets'),
+      historyApiFallback: true
     }
   })
 }
@@ -124,21 +115,22 @@ if (MODE === 'production') {
   module.exports = merge(common, {
     plugins: [
       // Delete everything from output directory and report to user
-      new CleanWebpackPlugin(['dist'], {
+      new CleanWebpackPlugin(['public'], {
         root: __dirname,
         exclude: [],
         verbose: true,
         dry: false
       }),
-      new CopyWebpackPlugin([
-        {
-          from: 'src/assets'
-        }
-      ]),
+      new CopyWebpackPlugin([{ from: 'src/assets' }]),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         filename: '[name]-[hash].css'
+      }),
+      new CompressionPlugin({
+        // Compress (gzip) Javascript and CSS files
+        test: /\.js$|\.css$/,
+        filename: '[path].gz[query]'
       })
     ],
     module: {
@@ -146,20 +138,18 @@ if (MODE === 'production') {
         {
           test: /\.elm$/,
           exclude: [/elm-stuff/, /node_modules/],
-          use: [
-            { loader: 'elm-webpack-loader' }
-          ]
+          use: [{ loader: 'elm-webpack-loader' }]
         },
-      {
-        test: /\.css$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loaders: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-      {
-        test: /\.scss$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loaders: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-      }
+        {
+          test: /\.css$/,
+          exclude: [/elm-stuff/, /node_modules/],
+          loaders: [MiniCssExtractPlugin.loader, 'css-loader']
+        },
+        {
+          test: /\.scss$/,
+          exclude: [/elm-stuff/, /node_modules/],
+          loaders: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        }
       ]
     }
   })
